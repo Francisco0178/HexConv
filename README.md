@@ -39,7 +39,7 @@ For this research, three datasets were used — two publicly available and one p
 | ----------------- | -------------------------- | ----------- | ---------- | --------------------- | --------------- | ---------------------------------------------------------------------- |
 | **NYC Taxi Data** | Jan 1, 2009 – Jun 30, 2010 | 92 million  | 7,098      | 8:00 a.m. – 8:00 p.m. | Pickup demand   | [Link](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)   |
 | **UBER NYC Data** | Apr 1, 2014 – Sep 30, 2014 | 1.5 million | 2,379      | 8:00 a.m. – 8:00 p.m. | Pickup demand   | [Link](https://ieee-dataport.org/documents/uber-pickups-new-york-city) |
-| **CTL Data**      | Apr 1, 2020 – Jul 25, 2020 | 0.2 million | 1,880      | 8:00 a.m. – 8:00 p.m. | Traffic speed   | 🔒Private                                                              |
+| **CTL Data**      | Apr 1, 2020 – Jul 25, 2020 | 0.2 million | 1,880      | 8:00 a.m. – 8:00 p.m. | Traffic speed   | Private                                                                |
 
 ## Proposed Method
 
