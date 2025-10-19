@@ -35,34 +35,20 @@ Un trabajo relacionado en la incorporación de hexágonos en redes neuronales pr
 
 For this research, three datasets were used — two publicly available and one private:
 
-### [NYC Taxi Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
-
-Characteristics:
-
-- Period covered: January 1, 2009 – June 30, 2010
-- Time steps: 7,098
-- Time range: 8:00 a.m. – 8:00 p.m.
-- Number of records: 92 million
-- Target variable: Pickup demand
-
-### [Data de UBER NYC](https://ieee-dataport.org/documents/uber-pickups-new-york-city)
-
-Characteristics:
-
-- Period covered: April 1, 2014 – September 30, 2014
-- Number of records: 1.5 million
-- Time steps: 2,379
-- Time range: 8:00 a.m. – 8:00 p.m.
-- Target variable: Pickup demand
-
-### Data de CTL
-
-Characteristics:
-
-- Period covered: April 1, 2020 – July 25, 2020
-- Number of records: 0.2 million
-- Time steps: 1,880
-- Time range: 8:00 a.m. – 8:00 p.m.
-- Target variable: Traffic speed
+| Dataset           | Period Covered             | Records     | Time Steps | Time Range            | Target Variable | Link                                                                      |
+| ----------------- | -------------------------- | ----------- | ---------- | --------------------- | --------------- | ------------------------------------------------------------------------- |
+| **NYC Taxi Data** | Jan 1, 2009 – Jun 30, 2010 | 92 million  | 7,098      | 8:00 a.m. – 8:00 p.m. | Pickup demand   | [🌐 Link](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)   |
+| **UBER NYC Data** | Apr 1, 2014 – Sep 30, 2014 | 1.5 million | 2,379      | 8:00 a.m. – 8:00 p.m. | Pickup demand   | [🌐 Link](https://ieee-dataport.org/documents/uber-pickups-new-york-city) |
+| **CTL Data**      | Apr 1, 2020 – Jul 25, 2020 | 0.2 million | 1,880      | 8:00 a.m. – 8:00 p.m. | Traffic speed   | 🔒 Private                                                                |
 
 ## Proposed Method
+
+El método propuesto para este trabajo es indexar los datos en hexágonos, preprocesar y adaptar los datos adecuadamente al pipeline hexagonal a través de una serie de operaciones matriciales, imputación de datos, definición de una red neuronal junto con un kernel especializado para la convolución hexagonal y entrenar los datos como series de imágenes de una resolución determinada por la cantidad de hexágonos.
+
+### Why Hexagons?
+
+Antes de continuar, es importante justificar por qué se decidió explorar convoluciones hexagonales en lugar de convoluciones normales basadas en cuadrículas.
+
+Una teselación regular es una forma de cubrir completamente un plano usando un solo tipo de polígono regular, sin dejar espacios vacíos ni que las figuras se superpongan. Existen 3 teselaciones de polígonos regulares: triángulos, cuadrados y hexágonos. Los motivos principales por los cuales se escogieron los hexagonos son: Neighbour Traversal, Subdivisión y Distorsión.
+
+#### Neighbour traversal
