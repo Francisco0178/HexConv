@@ -43,12 +43,30 @@ For this research, three datasets were used — two publicly available and one p
 
 ## Proposed Method
 
-El método propuesto para este trabajo es indexar los datos en hexágonos, preprocesar y adaptar los datos adecuadamente al pipeline hexagonal a través de una serie de operaciones matriciales, imputación de datos, definición de una red neuronal junto con un kernel especializado para la convolución hexagonal y entrenar los datos como series de imágenes de una resolución determinada por la cantidad de hexágonos.
+The proposed method for this work involves indexing the data into hexagonal cells, preprocessing and properly adapting the data to the hexagonal pipeline through a series of matrix operations, data imputation, and the definition of a neural network combined with a specialized kernel for hexagonal convolution. The data are then trained as image sequences at a resolution determined by the number of hexagons.
 
 ### Why Hexagons?
 
-Antes de continuar, es importante justificar por qué se decidió explorar convoluciones hexagonales en lugar de convoluciones normales basadas en cuadrículas.
+Before proceeding, it is important to justify the decision to explore hexagonal convolutions instead of conventional grid-based convolutions.
 
-Una teselación regular es una forma de cubrir completamente un plano usando un solo tipo de polígono regular, sin dejar espacios vacíos ni que las figuras se superpongan. Existen 3 teselaciones de polígonos regulares: triángulos, cuadrados y hexágonos. Los motivos principales por los cuales se escogieron los hexagonos son: Neighbour Traversal, Subdivisión y Distorsión.
+A regular tessellation refers to a way of completely covering a plane using only one type of regular polygon, without leaving any gaps or overlaps between shapes. There are three possible regular tessellations: triangles, squares, and hexagons. The main reasons for choosing hexagons are neighbor traversal, subdivision, and distortion.
 
 #### Neighbour traversal
+
+Neighbor traversal refers to the process of exploring or iterating through the neighboring cells surrounding a given cell within a tessellation or grid. This process is fundamental in simulations, spatial models, and algorithms that rely on interactions between adjacent cells.
+
+In this context, neighbor traversal is more convenient in hexagonal tessellations because each cell has six neighbors located at an equal distance. This uniformity simplifies mathematical computations such as distance calculations, averaging, and value propagation, making them more precise and consistent. Unlike triangular or square tessellations—which involve multiple classes of neighbors at varying distances—the hexagonal pattern maintains a balanced and homogeneous geometry, eliminating the need to distinguish between different neighbor types. As a result, algorithmic complexity is reduced and efficiency in simulations and computational models is improved. Consequently, neighbor traversal becomes more direct, coherent, and easier to implement in hexagonal tessellations.
+
+#### Subdivision
+
+Subdivision using hexagons is more advantageous because, although they cannot be perfectly divided like squares, their geometry allows for highly accurate approximations of areas of different sizes through rotation and alternation. This makes them ideal for representing variable scales in spatial models.
+
+This characteristic complements the advantage of neighbor traversal, as both aspects promote mathematical uniformity and consistency: hexagons maintain equidistant spacing between neighboring cells and allow regions to be merged or subdivided without distorting the structure. Furthermore, their shape facilitates processes such as sharding, enabling efficient and continuous data partitioning across multiple levels of resolution. Overall, the hexagonal pattern provides a balanced trade-off between precision, flexibility, and computational simplicity.
+
+#### Distorsion
+
+Distortion is one of the most significant reasons for choosing hexagons in spatial indexing, since projecting the spherical surface of the Earth onto a plane inevitably introduces deformation. Hexagons—particularly when combined with structures such as the icosahedron and the Dymaxion projection—effectively minimize this distortion, preserving a more uniform and stable shape compared to squares or cubes. This leads to a more accurate representation of geographic areas, enhances visual coherence, and ensures a more balanced distribution of data across the plane, which is essential for modeling, geospatial analysis, and visualization applications.
+
+### H3 vs S2
+
+Para la indexación hexagonal se utilizo la librería [H3 de Uber](https://h3geo.org/).
