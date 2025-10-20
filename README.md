@@ -46,8 +46,8 @@ For this research, three datasets were used — two publicly available and one p
 Para cada una de las zonas utilizadas para este trabajo (Nueva York y Santiago) se determinó una subregión de datos densa. Esto se hizo con el fin de minimzar lo máximo posible áreas que pudieran contener muchos datos faltantes. Cabe recordar que la agrupación de los datos además de ser espacial también es temporal, lo que se traduce en que debemos asegurar registros para cada hora y para cada hexágono. Las subregiones escogidas fueron las siguientes:
 
 <p align="center">
-  <img src="/imgs/nyczone.png" alt="Imagen 1" width="200">
-  <img src="/imgs/ctlzone.png" alt="Imagen 2" width="200">
+  <img src="/imgs/nyczone.png" alt="Imagen 1">
+  <img src="/imgs/ctlzone.png" alt="Imagen 2">
 </p>
 
 ## Proposed Method
