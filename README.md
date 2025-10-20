@@ -71,7 +71,7 @@ In this context, neighbor traversal is more convenient in hexagonal tessellation
 
 Subdivision using hexagons is more advantageous because, although they cannot be perfectly divided like squares, their geometry allows for highly accurate approximations of areas of different sizes through rotation and alternation. This makes them ideal for representing variable scales in spatial models.
 
-![Subdisivion](imgs/subdivision.png)
+![Subdisivion](imgs/subdivision2.png)
 
 This characteristic complements the advantage of neighbor traversal, as both aspects promote mathematical uniformity and consistency: hexagons maintain equidistant spacing between neighboring cells and allow regions to be merged or subdivided without distorting the structure. Furthermore, their shape facilitates processes such as sharding, enabling efficient and continuous data partitioning across multiple levels of resolution. Overall, the hexagonal pattern provides a balanced trade-off between precision, flexibility, and computational simplicity.
 
@@ -79,7 +79,9 @@ This characteristic complements the advantage of neighbor traversal, as both asp
 
 Distortion is one of the most significant reasons for choosing hexagons in spatial indexing, since projecting the spherical surface of the Earth onto a plane inevitably introduces deformation. Hexagons—particularly when combined with structures such as the icosahedron and the Dymaxion projection—effectively minimize this distortion, preserving a more uniform and stable shape compared to squares or cubes. This leads to a more accurate representation of geographic areas, enhances visual coherence, and ensures a more balanced distribution of data across the plane, which is essential for modeling, geospatial analysis, and visualization applications.
 
-![Dymaxion](imgs/dymaxion.png)
+<p align="center">
+  <img src="imgs/dymaxion.png" alt="Imagen 1">
+</p>
 
 ### H3 vs S2
 
