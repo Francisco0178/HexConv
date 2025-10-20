@@ -43,6 +43,13 @@ For this research, three datasets were used — two publicly available and one p
 | **UBER NYC Data** | Apr 1, 2014 – Sep 30, 2014 | 1.5 million | 2,379      | 8:00 a.m. – 8:00 p.m. | Pickup demand   | [Link](https://ieee-dataport.org/documents/uber-pickups-new-york-city) |
 | **CTL Data**      | Apr 1, 2020 – Jul 25, 2020 | 0.2 million | 1,880      | 8:00 a.m. – 8:00 p.m. | Traffic speed   | Private                                                                |
 
+Para cada una de las zonas utilizadas para este trabajo (Nueva York y Santiago) se determinó una subregión de datos densa. Esto se hizo con el fin de minimzar lo máximo posible áreas que pudieran contener muchos datos faltantes. Cabe recordar que la agrupación de los datos además de ser espacial también es temporal, lo que se traduce en que debemos asegurar registros para cada hora y para cada hexágono. Las subregiones escogidas fueron las siguientes:
+
+<p align="center">
+  <img src="/imgs/nyczone.png" alt="Imagen 1" width="200">
+  <img src="/imgs/ctlzone.png" alt="Imagen 2" width="200">
+</p>
+
 ## Proposed Method
 
 The proposed method for this work involves indexing the data into hexagonal cells, preprocessing and properly adapting the data to the hexagonal pipeline through a series of matrix operations, data imputation, and the definition of a neural network combined with a specialized kernel for hexagonal convolution. The data are then trained as image sequences at a resolution determined by the number of hexagons.
