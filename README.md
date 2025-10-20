@@ -11,8 +11,10 @@ Este trabajo define una metodología de preprocesamiento hexagonal
   - [Why Hexagons](#why-hexagons)
   - [S2 vs H3](#s2-vs-h3)
 - [Data Preprocessing](#data-preprocessing)
-- [Imputation](#imputation)
-- [HexConvLSTM Definition](#hexconvlstm-definition)
+- [Networks Definition](#networks-definition)
+  - [HexConvLSTM]
+  - [SquareConvLSTM]
+- [Training](#training)
 - [Data Postprocessing](#data-postprocessing)
 - [Results](#results)
 - [Conclusion](#conclusion)
@@ -49,7 +51,7 @@ Para cada una de las zonas utilizadas para este trabajo (Nueva York y Santiago) 
 
 ## Proposed Method
 
-The proposed method for this work involves indexing the data into hexagonal cells, preprocessing and properly adapting the data to the hexagonal pipeline through a series of matrix operations, data imputation, and the definition of a neural network combined with a specialized kernel for hexagonal convolution. The data are then trained as image sequences at a resolution determined by the number of hexagons.
+The proposed method for this work involves indexing the data into hexagonal cells, preprocessing and properly adapting the data to the hexagonal pipeline through a series of matrix operations, data imputation, and the definition of a neural network combined with a specialized kernel for hexagonal convolution. The resulting data sequences are formatted as image-like tensors, where each frame corresponds to the hexagonal lattice representation and its resolution is defined by the granularity of the hexagonal tessellation.
 
 ### Why Hexagons?
 
@@ -93,11 +95,97 @@ Both libraries use a resolution parameter that defines the number of hexagons or
 
 In this work, we applied both libraries to our data and obtained the following:
 
-| Zone Data | Resolution H3 | H3 Cells | Resolution S2 | S2 Cells | % of Imputation | Input Matrix Size (W x H) |
-| --------- | ------------- | -------- | ------------- | -------- | --------------- | ------------------------- |
-| NYC Data  | 8             | 26       | 14            | 53       | [ ]             | [ ]                       |
-| NYC Data  | 9             | 126      | 15            | 187      | [ ]             | [ ]                       |
-| NYC Data  | 10            | 770      | 16            | 689      | [ ]             | [ ]                       |
-| CTL Data  | 8             | 21       | 14            | 36       | [ ]             | [ ]                       |
-| CTL Data  | 9             | 110      | 15            | 115      | [ ]             | [ ]                       |
-| CTL Data  | 10            | 667      | 16            | 430      | [ ]             | [ ]                       |
+| Zone | Resolution H3 | H3 Cells | Resolution S2 | S2 Cells |
+| ---- | ------------- | -------- | ------------- | -------- |
+| NYC  | 8             | 26       | 14            | 53       |
+| NYC  | 9             | 126      | 15            | 187      |
+| NYC  | 10            | 770      | 16            | 689      |
+| SCL  | 8             | 21       | 14            | 36       |
+| SCL  | 9             | 110      | 15            | 115      |
+| SCL  | 10            | 667      | 16            | 430      |
+
+Para determinar la granularidad hexagonal que ocupamos en este trabajo, lo haremos basado en el porcentaje de imputación y en las dimensiones de la matriz de entrada. Como mencionamos antes, debemos asegurar la mayor cantidad de registros para cada hora y para cada hexágono. Al mismo tiempo, también debemos asegurar que la matriz de entrada para la capa convolucional sea lo suficientemente grande para aprovechar sus capacidades de extracción de detalles espaciales. De lo contrario, no hace mucho sentido la implementación de este modelo.
+
+La tabla a continuación nos muestra los diferentes porcentajes de imputación y dimensiones de la matriz de entrada según las diferentes granularidades hexagonales:
+
+| Data          | Resolution H3 | H3 Cells | % of Imputation | Input Matrix Size (W x H) |
+| ------------- | ------------- | -------- | --------------- | ------------------------- |
+| NYC Taxi Data | 8             | 26       | [ ]             | [ ]                       |
+| Uber Data     | 8             | [ ]      | [ ]             | [ ]                       |
+| CTL Data      | 8             | [ ]      | [ ]             | [ ]                       |
+| NYC Taxi Data | 9             | 26       | [ ]             | [ ]                       |
+| Uber Data     | 9             | [ ]      | [ ]             | [ ]                       |
+| CTL Data      | 9             | [ ]      | [ ]             | [ ]                       |
+| NYC Taxi Data | 10            | 26       | [ ]             | [ ]                       |
+| Uber Data     | 10            | [ ]      | [ ]             | [ ]                       |
+| CTL Data      | 10            | [ ]      | [ ]             | [ ]                       |
+
+Para el caso de la data de NYC Taxi Data determinamos que la granularidad de estudio será de [ ] debido a que el porcentaje de imputación es bajo y la matriz de entrada es lo suficientemente grande para ser utilizada. Siguiendo la misma lógica de balance, la granularidad para el dataset de Uber Data es de [ ] y para la data CTL Data es de [ ].
+
+## Data Preprocessing
+
+Una vez definida la granularidad que se utilizará para cada conjunto de datos, toca prepararlos para la adaptación de la arquitectura de nuestro modelo.
+
+[Añadir imagenes de NYC vs SCL hex y squared]
+
+En primer lugar, debemos representar de forma cartesiana tanto los hexágonos como las cuadriculas. Para esto ocupamos diferentes métodos dependiendo de cada librería.
+
+Tanto H3 como S2 contienen métodos nativos para la obtención de coordenadas (i, j) de cada una de sus celdas. Con la ayuda de estos métodos pudimos obtener y normalizar ambas teselaciones en una representación cartesiana, como se muestra a continuación:
+
+[Añadir imagenes de NYC vs SCL cartesiano]
+
+En este punto, los datos son trabajados de tal manera de agrupar la demanada por hora y coordenadas en el caso de los datasets de Uber y de NYC Taxi, mientras que para el conjunto de datos CTL Data se agrupan los promedios de velocidades por hora y coordenadas. Adicionalmente, se realiza una imputación de datos para todos los conjuntos con el método de imputación PPCA.
+
+En este punto, para el enfoque cuadriculado el preprocesamiento está casi listo. En cuanto al caso de las celdas hexagonales, hay que realizar un serie de pasos adicionales para la adaptación hexagonal. Al representar las celdas hexagonales en un plano cartesiano estas pierden su lógica de 6 vecinos, por lo que se debe elaborar una forma para preservarlos.
+
+[añadir imagen de vecinos hexagonales vs vecinos en cartesiano]
+
+Se implementaron una serie de operaciones matriciales las cuales permiten que un kernel especializado pueda identificar los vecinos originales del hexágono. Estas operaciones fueron: upsampling, padding y shifting.
+
+Upsampling: El upsampling permitió...
+
+[añadir imagen]
+
+Padding: El padding permite...
+
+[añadir imagen]
+
+Shifting: esta operación mueve...
+
+[añadir imagen]
+
+Para interpretar los vecinos originales de la representación hexagonal se define el siguiente kernel:
+
+Este filtro es capaz de recorrer el tensor de entrada de tal forma que tome el centro y los 6 vecinos originales de cada hexágono.
+
+De esta forma, encontramos una manera para preservar los vecinos originales de la grilla hexagonal para cada celda.
+
+En este punto, sólo queda generar nuestro tensor y definir los conjuntos de entrenamiento, validación y testeo, además de crear las secuencias para la capa LSTM de nuestra red.
+
+## Networks Definition
+
+### HexConvLSTM
+
+La definición de la red está compuesta por una red ConvLSTM junto con un kernel constraint definido por.
+
+### SquareConvLSTM
+
+## Training HexConv
+
+## Data Postprocessing
+
+Para el caso del método hexagonal se debió realizar un postprocesamiento especializado capaz de revertir las operaciones definidas en [].
+
+## Results
+
+El conjunto de datos de CTL Data fue medido tanto contra su versión cuadriculada como contra otras redes tradicionales. Encontrando los siguientes resultados:
+
+En cuanto a el conjunto de datos de NYC Taxi Data los resultados fueron los siguientes:
+
+En cuanto a el conjunto de datos de Uber Data los resultados fueron los siguientes:
+
+## Conclusion
+
+## Acknowledgements
+
+## Citing HexConv
