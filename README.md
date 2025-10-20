@@ -12,8 +12,8 @@ Este trabajo define una metodología de preprocesamiento hexagonal
   - [S2 vs H3](#s2-vs-h3)
 - [Data Preprocessing](#data-preprocessing)
 - [Networks Definition](#networks-definition)
-  - [HexConvLSTM]
-  - [SquareConvLSTM]
+  - [HexConvLSTM](#hexconvlstm)
+  - [SquareConvLSTM](#squareconvlstm)
 - [Training](#training)
 - [Data Postprocessing](#data-postprocessing)
 - [Results](#results)
