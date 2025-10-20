@@ -57,6 +57,8 @@ Before proceeding, it is important to justify the decision to explore hexagonal 
 
 A regular tessellation refers to a way of completely covering a plane using only one type of regular polygon, without leaving any gaps or overlaps between shapes. There are three possible regular tessellations: triangles, squares, and hexagons. The main reasons for choosing hexagons are neighbor traversal, subdivision, and distortion.
 
+![Regular Polygons](imgs/regular_polygons.png)
+
 #### Neighbour traversal
 
 Neighbor traversal refers to the process of exploring or iterating through the neighboring cells surrounding a given cell within a tessellation or grid. This process is fundamental in simulations, spatial models, and algorithms that rely on interactions between adjacent cells.
