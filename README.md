@@ -1,6 +1,6 @@
 # HexConv - A ConvLSTM NN for geospatio-temporal hexagonal based data prediction
 
-![HexConv](imgs/hexconv.png)
+<img src="imgs/hexconv2.png" alt="HexConv" width="300">
 
 Este trabajo define una metodología de preprocesamiento hexagonal
 
