@@ -53,6 +53,8 @@ Para cada una de las zonas utilizadas para este trabajo (Nueva York y Santiago) 
 
 The proposed method for this work involves indexing the data into hexagonal cells, preprocessing and properly adapting the data to the hexagonal pipeline through a series of matrix operations, data imputation, and the definition of a neural network combined with a specialized kernel for hexagonal convolution. The resulting data sequences are formatted as image-like tensors, where each frame corresponds to the hexagonal lattice representation and its resolution is defined by the granularity of the hexagonal tessellation.
 
+![Hexagons steps](imgs/steps_img.jpg)
+
 ### Why Hexagons?
 
 Before proceeding, it is important to justify the decision to explore hexagonal convolutions instead of conventional grid-based convolutions.
